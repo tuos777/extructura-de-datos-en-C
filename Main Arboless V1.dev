@@ -1,0 +1,121 @@
+#include <iostream>
+
+#include<stdlib.h>
+#include<stdio.h>
+
+typedef struct nodo_arbol{
+int dato;
+struct nodo_arbol *izquierdo;
+struct nodo_arbol *derecho;
+}NodoAR;
+typedef NodoAR *Arbol;
+/////////////////////////////menú general
+void menu(){
+    printf("%s","BIENVENIDO AL MARAVILLOSO MUNDO DE LOS ARBOLES BINARIOS\n");
+	printf("%s","1. Insertar elemento\n");
+	printf("%s","2. Recorrer Arbol\n");
+	printf("%s","3. Contar nodos de un Arbol\n");
+	printf("%s","4. Determinar si un elemento dado es una hoja\n");
+	printf("%s","5. eliminar arbol\n");
+	printf("%s","6. eliminar nodo de un arbol\n");
+	printf("%s","7. SALIR\n");
+
+}
+
+int Vacio(Arbol r){
+if(r==NULL){	
+return 1;
+}
+else{
+return 0;
+}
+}
+int insertar_arbol(Arbol *a, int dat){
+Arbol padre = NULL; 
+Arbol actual = *a;
+//mientras actual no sea un árbol vacío o hasta que se encuentre el elemento.
+while(!Vacio(actual) && dat != actual->dato) { 
+padre = actual;
+if(dat < actual->dato) 
+actual = actual->izquierdo; 
+else 
+  if(dat > actual->dato) 
+    actual = actual->derecho; 
+}
+if(!Vacio(actual)) //Si actual no es NULL, el elemento está en el árbol, por lo tanto salir.
+return 1; 
+if(Vacio(padre)){ 
+*a = (Arbol)malloc(sizeof(NodoAR));
+(*a)->dato = dat;
+(*a)->izquierdo = (*a)->derecho = NULL;
+}
+else 
+if(dat < padre->dato) { 
+actual = (Arbol)malloc(sizeof(NodoAR));
+padre->izquierdo = actual;
+actual->dato = dat;
+actual->izquierdo = actual->derecho = NULL;
+}
+else 
+if(dat > padre->dato) { 
+actual = (Arbol)malloc(sizeof(NodoAR));
+padre->derecho = actual;
+actual->dato = dat;
+actual->izquierdo = actual->derecho = NULL;
+}
+return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+int main(){
+int valor_ingreso,opc=0;
+int c,opc_recorrido=0;
+Arbol p;
+p=NULL;
+
+while(opc!=7){
+        system("cls");
+        menu();
+        scanf("%d",&opc);
+        switch(opc){
+                
+            case 1:
+                system("cls");
+                printf("Ingrese elementos al -1 para terminar: ");
+                scanf("%d",&valor_ingreso);
+                while(valor_ingreso!=-1){
+                        if(insertar_arbol(&p, valor_ingreso)==1){
+						printf("El dato se encuentra en el arbol \n");
+						}
+					    else{
+						printf("El dato ha sido guardado \n");
+						}		
+					    printf("Ingrese mas datos,  recuerde que con -1 termina: ");
+                        scanf("%d",&valor_ingreso);
+                }
+                break;
+            case 2:
+				  
+				  system("cls");
+				  printf("construccion \n");
+							 
+        	     break;
+			case 3:
+				system("cls");
+				printf("construccion \n");
+				
+				break;
+			
+			case 5:
+				system("cls");
+				printf("construccion \n");
+				break;
+					   
+		
+		printf ("%s","presione un numero diferente de 6 para volver al menu\n ");
+        scanf("%d",&opc);
+       }
+	}
+return 0;
+}
+
